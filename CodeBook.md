@@ -19,16 +19,16 @@ The sensor acceleration signal, which has gravitational and body motion componen
 The gravitational force is assumed to have only low frequency components, therefore a filter with 0.3 Hz cutoff frequency was used.
 From each window, a vector of features was obtained by calculating variables from the time and frequency domain.
 See 'features_info.txt' for more details. 
-### Records information
+#### Records information
 - Triaxial acceleration from the accelerometer (total acceleration) and the estimated body acceleration.
 - Triaxial Angular velocity from the gyroscope. 
 - A 561-feature vector with time and frequency domain variables. 
 - Its activity label. 
 - An identifier of the subject who carried out the experiment.
-### Notes
+#### Notes
 - Features are normalized and bounded within [-1,1].
 - Each feature vector is a row on the text file.
-### File information
+#### File information
 - 'features_info.txt': Shows information about the variables used on the feature vector.
 
 - 'features.txt': List of all features.
@@ -43,7 +43,7 @@ See 'features_info.txt' for more details.
 
 - 'test/y_test.txt': Test labels.
 
-The following files are available for the train and test data. Their descriptions are equivalent. 
+#### The following files are available for the train and test data. Their descriptions are equivalent. 
 
 - 'train/subject_train.txt': Each row identifies the subject who performed the activity for each window sample. Its range is from 1 to 30. 
 
@@ -52,3 +52,30 @@ The following files are available for the train and test data. Their description
 - 'train/Inertial Signals/body_acc_x_train.txt': The body acceleration signal obtained by subtracting the gravity from the total acceleration. 
 
 - 'train/Inertial Signals/body_gyro_x_train.txt': The angular velocity vector measured by the gyroscope for each window sample. The units are radians/second. 
+
+### run_analysis.R :
+#### Transformation Requirements
+1. Merges the training and the test sets to create one data set.
+2. Extracts only the measurements on the mean and standard deviation for each measurement.
+3. Uses descriptive activity names to name the activities in the data set
+4. Appropriately labels the data set with descriptive activity names.
+5. Creates a second, independent tidy data set with the average of each variable for each activity and each subject.
+
+#### Transformation Details
+1. Activity labels and features are read in selective way for easier placement
+2. To determine appropriate column, names() has been used.
+3. grepl() is used to extract only what is needed (standard deviation and mean) from features
+4. activity labels are added to the labels both for test and train
+5. cbind() was used to bind all information for each train and test
+6. rbind() was used to merge two set of data into one
+7. For melt() works properly with appropriately differenciated with id and measurements, setdiff is used.
+8. dcast() has been used to cast melted data. ( with formula of Subject + Acitivity_Label ~ variable to observe tidy data aggregated with mean
+
+#### Additional variables
+- features.extract : Measurements (Mean and Standard Deviation) that extracted from original file "Features"
+- data.test : binded set of data from test (subject, label and observations)
+- data.train : binded set of data from train (subject, label and observations)
+- data : merged data, combining data.test and data.train
+- id_label, variable_label : determined (differenciated) label in table for melt)
+- data.melt : set of data yet to be formed into tidy data
+- data.tidy : tidy data
