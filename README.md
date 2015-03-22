@@ -16,5 +16,13 @@ The script is to create tidy data from raw sequence of data without specific cat
 ## Instruction to reproduce the tidy data
 1. Download and unzip the data from the source.
 2. Place run_analysis.R scrit in the parent directory of unzipped data directory.
-3. Run the script
+3. Run the script. (reshape2 and data.table will be loaded through the script)
 4. script will automatically generate "tidy_data.txt" in the same directory.
+
+## Flow of script
+1. data.table and reshape2 loaded
+2. load data from downloaded directory
+3. after the setting of column name, mean and standard devidation measurement will be extracted
+4. after properly labeled, whole data will be bound in one table for each test and train
+5. data merged
+6. merged data will be melted and dcast-ed to format a tidy daya
