@@ -1,3 +1,5 @@
+library(data.table)
+library(reshape2)
 
 ##Load data
 activity_labels <- read.table("UCI HAR Dataset/activity_labels.txt")[,2]
@@ -42,7 +44,7 @@ data.train <- cbind(as.data.table(train.subject),train.label,train.set)
 data <- rbind(data.test,data.train)
 
 ## Set appropriate labels the data set
-library(reshape2)
+
 id_label=c("Subject","Activity_ID","Activity_Label")
 variable_label <- setdiff(colnames(data), id_label)
 data.melt <- melt(data, id=id_label,measure.vars=variable_label)
